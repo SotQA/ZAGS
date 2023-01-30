@@ -1,3 +1,4 @@
+import org.junit.jupiter.api.AfterAll;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
@@ -12,6 +13,12 @@ public class SmokeTest extends Config {
     public static void testsConfiguration() {
         driver.get("https://user:senlatest@regoffice.senla.eu/");
         driver.manage().window().maximize();
+    }
+
+    @AfterAll
+    public static void closeTest() throws InterruptedException {
+        Thread.sleep(10000);
+        driver.quit();
     }
 
     @Test
@@ -109,7 +116,7 @@ public class SmokeTest extends Config {
         registration.getDateOfBirth().sendKeys("22061999");
         registration.getNextButton().click();
 
-        Thread.sleep(5000);
+        Thread.sleep(7000);
 
         WebElement lastElement = driver.findElement(By.xpath("//table/tr[last()]"));
         js.executeScript("arguments[0].scrollIntoView(true);", lastElement);
@@ -119,7 +126,7 @@ public class SmokeTest extends Config {
         ApplicationsAdminScreen application = new ApplicationsAdminScreen();
         application.getApproveButton().click();
 
-        Thread.sleep(1500);
+        Thread.sleep(3000);
 
         Assert.assertEquals("Одобрена", driver.findElement(By.xpath("//table/tr[last()]/td[@class='MuiTableCell-root MuiTableCell-alignCenter']")).getText());
 
