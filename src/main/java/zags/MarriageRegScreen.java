@@ -4,34 +4,39 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 public class MarriageRegScreen extends Config {
-    private WebElement lastName;
-    private WebElement firstName;
-    private WebElement fathersName;
-    private WebElement dateOfBirth;
-    private WebElement passportNumber;
-    private WebElement sex;
+    public WebElement lastName;
+    public WebElement firstName;
+    public WebElement fathersName;
+    public WebElement dateOfBirth;
+    public WebElement passportNumber;
+    public WebElement sex;
+    public WebElement nextButton;
 
     public WebElement getLastName() {
-        return driver.findElement(By.xpath("//div/input[1]"));
+        return lastName = driver.findElement(By.xpath("//input[@id='TextInputField-7']"));
     }
 
     public WebElement getFirstName() {
-        return firstName;
+        return firstName = driver.findElement(By.xpath("//input[@id='TextInputField-8']"));
     }
 
     public WebElement getFathersName() {
-        return fathersName;
+        return fathersName = driver.findElement(By.xpath("//input[@id='TextInputField-9']"));
     }
 
     public WebElement getDateOfBirth() {
-        return dateOfBirth;
+        return dateOfBirth = driver.findElement(By.xpath("//input[@id='TextInputField-10']"));
     }
 
     public WebElement getPassportNumber() {
-        return passportNumber;
+        return passportNumber = driver.findElement(By.xpath("//input[@id='TextInputField-11']"));
     }
 
     public WebElement getSex() {
-        return sex;
+        return sex = driver.findElement(By.xpath("//input[@id='TextInputField-12']"));
+    }
+
+    public WebElement getNextButton() {
+        return nextButton = driver.findElement(By.xpath("//div/button[contains(text(), 'Далее')]"));
     }
 }

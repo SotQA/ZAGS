@@ -10,12 +10,11 @@ public class UserForm extends Config {
     private WebElement passportNumber = driver.findElement(By.xpath("//div/input[@placeholder='Введите номер паспорта (не более 9 символов)']"));
     private WebElement address = driver.findElement(By.xpath("//div/input[@placeholder='Введите адрес прописки']"));
     private WebElement lastName = driver.findElement(By.xpath("//div/input[@placeholder='Введите фамилию (минимум 2 символа)']"));
+    private WebElement nextButton = driver.findElement(By.xpath("//div/button[contains(text(), 'Далее')]"));
 
     public WebElement getNextButton() {
         return nextButton;
     }
-
-    private WebElement nextButton =  driver.findElement(By.xpath("//div/button[contains(text(), 'Далее')]"));
 
     public WebElement getLastName() {
         return lastName;
@@ -46,7 +45,7 @@ public class UserForm extends Config {
         element.sendKeys(information);
     }
 
-    public void clickNextButton(){
+    public void clickNextButton() {
         nextButton.click();
     }
 }

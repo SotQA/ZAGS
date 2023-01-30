@@ -5,23 +5,14 @@ import org.openqa.selenium.WebElement;
 
 public class FirstScreen extends Config {
 
-    private WebElement userLogin = driver.findElement(By.xpath("//button[contains(text(),'Войти как пользователь')]"));
-    private WebElement adminLogin = driver.findElement(By.xpath("//button[contains(text(),'Войти как администратор')]"));
+    public WebElement userLogin;
+    public WebElement adminLogin;
 
     public WebElement getUserLogin() {
-        return userLogin;
+        return userLogin = driver.findElement(By.xpath("//button[contains(text(),'Войти как пользователь')]"));
     }
 
     public WebElement getAdminLogin() {
-        return adminLogin;
-    }
-
-
-    public void loggingAsUserClick() {
-        userLogin.click();
-    }
-
-    public void loggingAsAdminClick() {
-        adminLogin.click();
+        return adminLogin = driver.findElement(By.xpath("//button[contains(text(),'Войти как администратор')]"));
     }
 }
