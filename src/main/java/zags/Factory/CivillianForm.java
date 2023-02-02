@@ -52,6 +52,5 @@ public class CivillianForm extends Config {
         sex.click();
         sex.sendKeys(gender);
 
-        nextButton.click();
     }
 }

@@ -15,6 +15,4 @@ public class Config {
     public void clickButton(WebElement button) {
         button.click();
     }
-
-
 }

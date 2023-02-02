@@ -29,4 +29,13 @@ public class LastPageAdmin extends Config {
 
     @FindBy(xpath = "//table/tr[last()]")
     public WebElement lastElement;
+
+    @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о браке')]")
+    public WebElement marriageProof;
+
+    @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о рождении')]")
+    public WebElement birthProof;
+
+    @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о смерти')]")
+    public WebElement deathProof;
 }

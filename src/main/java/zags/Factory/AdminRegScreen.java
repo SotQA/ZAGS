@@ -31,4 +31,24 @@ public class AdminRegScreen extends Config {
 
     @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
     public WebElement nextButton;
+
+    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate){
+        lastName.click();
+        lastName.sendKeys(surname);
+
+        firstName.click();
+        firstName.sendKeys(name);
+
+        fathersName.click();
+        fathersName.sendKeys(father);
+
+        phoneNum.click();
+        phoneNum.sendKeys(phone);
+
+        passportNumber.click();
+        passportNumber.sendKeys(passport);
+
+        dateOfBirth.click();
+        dateOfBirth.sendKeys(birthDate);
+    }
 }

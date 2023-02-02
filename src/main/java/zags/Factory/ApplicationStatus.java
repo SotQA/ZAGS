@@ -13,18 +13,18 @@ public class ApplicationStatus extends Config {
     }
 
     @FindBy(xpath = "//div/span[contains(text(), 'Спасибо за обращение!')]")
-    public static WebElement thanksForApplication;
+    public WebElement thanksForApplication;
 
     @FindBy(xpath = "//div/span[contains(text(), 'Ваша заявка отправлена на рассмотрение.')]")
-    public static WebElement applicationStatus;
+    public WebElement applicationStatus;
 
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
-    public static WebElement closePage;
+    public WebElement closePage;
 
     @FindBy(xpath = "//button[contains(text(), 'Создать новую заявку')]")
-    public static WebElement createNewApplication;
+    public WebElement createNewApplication;
 
     @FindBy(xpath = "//button[contains(text(), 'Обновить')]")
-    public static WebElement refreshPage;
+    public WebElement refreshPage;
 
 }

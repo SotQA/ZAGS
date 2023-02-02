@@ -1,7 +1,8 @@
-package zags;
+package zags.NonFactory;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import zags.Config;
 
 public class ApplicationsAdminScreen extends Config {
     public WebElement closeButton;

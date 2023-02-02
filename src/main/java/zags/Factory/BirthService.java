@@ -31,6 +31,5 @@ public class BirthService extends Config {
         mother.sendKeys(motherInfo);
         father.click();
         father.sendKeys(fatherInfo);
-        endButton.click();
     }
 }

@@ -52,6 +52,5 @@ public class ApplicantForm extends Config {
         address.click();
         address.sendKeys(adress);
 
-        nextButton.click();
     }
 }

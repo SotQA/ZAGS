@@ -1,7 +1,8 @@
-package zags;
+package zags.NonFactory;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import zags.Config;
 
 public class UserForm extends Config {
     private WebElement firstName = driver.findElement(By.xpath("//div/input[@placeholder='Введите имя (минимум 2 символа)']"));
