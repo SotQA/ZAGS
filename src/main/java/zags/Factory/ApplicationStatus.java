@@ -26,5 +26,4 @@ public class ApplicationStatus extends Config {
 
     @FindBy(xpath = "//button[contains(text(), 'Обновить')]")
     public WebElement refreshPage;
-
 }

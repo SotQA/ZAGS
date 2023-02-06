@@ -33,7 +33,7 @@ public class ApplicantForm extends Config {
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
     public WebElement nextButton;
 
-    public void fillApplicantFOrm(String surname, String name, String father, String phone,  String passport, String adress ){
+    public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ){
         lastName.click();
         lastName.sendKeys(surname);
 

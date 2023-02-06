@@ -18,7 +18,7 @@ public class LastPageAdmin extends Config {
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
     public WebElement closeButton;
 
-    @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
+    @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root MuiTableCell-alignCenter']")
     public WebElement status;
 
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
