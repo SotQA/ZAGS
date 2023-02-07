@@ -13,44 +13,72 @@ public class ApplicantForm extends Config {
     }
 
     @FindBy(xpath = "//div/input[@placeholder='Введите фамилию (минимум 2 символа)']")
-    public WebElement lastName;
+    private WebElement lastName;
 
     @FindBy(xpath = "//div/input[@placeholder='Введите имя (минимум 2 символа)']")
-    public WebElement firstName;
+    private WebElement firstName;
 
     @FindBy(xpath = "//div/input[@placeholder='Введите отчество (минимум 5 символов)']")
-    public WebElement fatherName;
+    private WebElement fatherName;
 
     @FindBy(xpath = "//div/input[@placeholder='Введите номер телефона (не более 13 символов)']")
-    public WebElement phoneNum;
+    private WebElement phoneNum;
 
     @FindBy(xpath = "//div/input[@placeholder='Введите номер паспорта (не более 9 символов)']")
-    public WebElement passpNum;
+    private WebElement passpNum;
 
     @FindBy(xpath = "//div/input[@placeholder='Введите адрес прописки']")
-    public WebElement address;
+    private WebElement address;
 
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
-    public WebElement nextButton;
+    private WebElement nextButton;
 
     public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ){
-        lastName.click();
-        lastName.sendKeys(surname);
+        getLastName().click();
+        getLastName().sendKeys(surname);
 
-        firstName.click();
-        firstName.sendKeys(name);
+        getFirstName().click();
+        getFirstName().sendKeys(name);
 
-        fatherName.click();
-        fatherName.sendKeys(father);
+        getFatherName().click();
+        getFatherName().sendKeys(father);
 
-        phoneNum.click();
-        phoneNum.sendKeys(phone);
+        getPhoneNum().click();
+        getPhoneNum().sendKeys(phone);
 
-        passpNum.click();
-        passpNum.sendKeys(passport);
+        getPasspNum().click();
+        getPasspNum().sendKeys(passport);
 
-        address.click();
-        address.sendKeys(adress);
+        getAddress().click();
+        getAddress().sendKeys(adress);
 
+    }
+
+    public WebElement getLastName() {
+        return lastName;
+    }
+
+    public WebElement getFirstName() {
+        return firstName;
+    }
+
+    public WebElement getFatherName() {
+        return fatherName;
+    }
+
+    public WebElement getPhoneNum() {
+        return phoneNum;
+    }
+
+    public WebElement getPasspNum() {
+        return passpNum;
+    }
+
+    public WebElement getAddress() {
+        return address;
+    }
+
+    public WebElement getNextButton() {
+        return nextButton;
     }
 }

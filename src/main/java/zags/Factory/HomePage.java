@@ -13,9 +13,16 @@ public class HomePage extends Config {
     }
 
     @FindBy(xpath = "//button[contains(text(),'Войти как пользователь')]")
-    public WebElement userLogin;
+    private WebElement userLogin;
 
     @FindBy(xpath = "//button[contains(text(),'Войти как администратор')]")
-    public WebElement adminLogin;
+    private WebElement adminLogin;
 
+    public WebElement getUserLogin() {
+        return userLogin;
+    }
+
+    public WebElement getAdminLogin() {
+        return adminLogin;
+    }
 }

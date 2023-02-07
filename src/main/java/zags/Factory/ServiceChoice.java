@@ -13,11 +13,23 @@ public class ServiceChoice extends Config {
     }
 
     @FindBy(xpath = "//button[contains(text(), 'Регистрация брака')]")
-    public WebElement marriageReg;
+    private WebElement marriageReg;
 
     @FindBy(xpath = "//div/button[contains(text(), 'Регистрация рождения')]")
-    public WebElement birthReg;
+    private WebElement birthReg;
 
     @FindBy(xpath = "//div/button[contains(text(), 'Регистрация смерти')]")
-    public WebElement deathReg;
+    private WebElement deathReg;
+
+    public WebElement getMarriageReg() {
+        return marriageReg;
+    }
+
+    public WebElement getBirthReg() {
+        return birthReg;
+    }
+
+    public WebElement getDeathReg() {
+        return deathReg;
+    }
 }

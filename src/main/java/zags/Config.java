@@ -13,10 +13,6 @@ public class Config {
         return driver;
     }
 
-    public WebDriverWait getWait() {
-        return wait;
-    }
-
     public void clickButton(WebElement button) {
         button.click();
     }

@@ -6,49 +6,77 @@ import org.openqa.selenium.support.FindBy;
 import zags.Config;
 
 public class AdminRegScreen extends Config {
-    public AdminRegScreen(WebDriver driver){
+    public AdminRegScreen(WebDriver driver) {
         this.driver = driver;
-        org.openqa.selenium.support.PageFactory.initElements(driver,this);
+        org.openqa.selenium.support.PageFactory.initElements(driver, this);
+    }
+
+    public WebElement getLastName() {
+        return lastName;
+    }
+
+    public WebElement getFirstName() {
+        return firstName;
+    }
+
+    public WebElement getFathersName() {
+        return fathersName;
+    }
+
+    public WebElement getPhoneNum() {
+        return phoneNum;
+    }
+
+    public WebElement getPassportNumber() {
+        return passportNumber;
+    }
+
+    public WebElement getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public WebElement getNextButton() {
+        return nextButton;
     }
 
     @FindBy(xpath = "(//input)[1]")
-    public WebElement lastName;
+    private WebElement lastName;
 
     @FindBy(xpath = "(//input)[2]")
-    public WebElement firstName;
+    private WebElement firstName;
 
     @FindBy(xpath = "(//input)[3]")
-    public WebElement fathersName;
+    private WebElement fathersName;
 
     @FindBy(xpath = "(//input)[4]")
-    public WebElement phoneNum;
+    private WebElement phoneNum;
 
     @FindBy(xpath = "(//input)[5]")
-    public WebElement passportNumber;
+    private WebElement passportNumber;
 
     @FindBy(xpath = "(//input)[6]")
-    public WebElement dateOfBirth;
+    private WebElement dateOfBirth;
 
     @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
-    public WebElement nextButton;
+    private WebElement nextButton;
 
-    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate){
-        lastName.click();
-        lastName.sendKeys(surname);
+    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) {
+        getLastName().click();
+        getLastName().sendKeys(surname);
 
-        firstName.click();
-        firstName.sendKeys(name);
+        getFirstName().click();
+        getFirstName().sendKeys(name);
 
-        fathersName.click();
-        fathersName.sendKeys(father);
+        getFathersName().click();
+        getFathersName().sendKeys(father);
 
-        phoneNum.click();
-        phoneNum.sendKeys(phone);
+        getPhoneNum().click();
+        getPhoneNum().sendKeys(phone);
 
-        passportNumber.click();
-        passportNumber.sendKeys(passport);
+        getPassportNumber().click();
+        getPassportNumber().sendKeys(passport);
 
-        dateOfBirth.click();
-        dateOfBirth.sendKeys(birthDate);
+        getDateOfBirth().click();
+        getDateOfBirth().sendKeys(birthDate);
     }
 }

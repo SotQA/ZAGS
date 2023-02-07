@@ -15,56 +15,88 @@ public class ServiceInfo extends Config {
     }
 
     @FindBy(xpath = "//input[@id='TextInputField-13']")
-    public WebElement regDate;
+    private WebElement regDate;
 
     @FindBy(xpath = "//input[@id='TextInputField-14']")
-    public WebElement newLastName;
+    private WebElement newLastName;
 
     @FindBy(xpath = "//input[@id='TextInputField-15']")
-    public WebElement spouseLastN;
+    private WebElement spouseLastN;
 
     @FindBy(xpath = "//input[@id='TextInputField-16']")
-    public WebElement spouseFirstN;
+    private WebElement spouseFirstN;
 
     @FindBy(xpath = "//input[@id='TextInputField-17']")
-    public WebElement spouseFatherN;
+    private WebElement spouseFatherN;
 
     @FindBy(xpath = "//input[@id='TextInputField-18']")
-    public WebElement spouseDateOfBirth;
+    private WebElement spouseDateOfBirth;
 
     @FindBy(xpath = "//input[@id='TextInputField-19']")
-    public WebElement spousePasspN;
+    private WebElement spousePasspN;
 
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
-    public WebElement endButton;
+    private WebElement endButton;
 
     public void fillServiceInfo(String registrationDate, String lastName,
                                 String spouseLastName, String spouseName,
                                 String spouseFatherName, String spouseBirthDate,
                                 String spousePassortN)
     {
-        regDate.click();
-        regDate.sendKeys(registrationDate);
+        getRegDate().click();
+        getRegDate().sendKeys(registrationDate);
 
-        newLastName.click();
-        newLastName.sendKeys(lastName);
+        getNewLastName().click();
+        getNewLastName().sendKeys(lastName);
 
-        spouseLastN.click();
-        spouseLastN.sendKeys(spouseLastName);
+        getSpouseLastN().click();
+        getSpouseLastN().sendKeys(spouseLastName);
 
-        spouseFirstN.click();
-        spouseFirstN.sendKeys(spouseName);
+        getSpouseFirstN().click();
+        getSpouseFirstN().sendKeys(spouseName);
 
-        spouseFatherN.click();
-        spouseFatherN.sendKeys(spouseFatherName);
+        getSpouseFatherN().click();
+        getSpouseFatherN().sendKeys(spouseFatherName);
 
-        js.executeScript("arguments[0].scrollIntoView(true);", spousePasspN);
+        js.executeScript("arguments[0].scrollIntoView(true);", getSpousePasspN());
 
-        spouseDateOfBirth.click();
-        spouseDateOfBirth.sendKeys(spouseBirthDate);
+        getSpouseDateOfBirth().click();
+        getSpouseDateOfBirth().sendKeys(spouseBirthDate);
 
-        spousePasspN.click();
-        spousePasspN.sendKeys(spousePassortN);
+        getSpousePasspN().click();
+        getSpousePasspN().sendKeys(spousePassortN);
 
+    }
+
+    public WebElement getRegDate() {
+        return regDate;
+    }
+
+    public WebElement getNewLastName() {
+        return newLastName;
+    }
+
+    public WebElement getSpouseLastN() {
+        return spouseLastN;
+    }
+
+    public WebElement getSpouseFirstN() {
+        return spouseFirstN;
+    }
+
+    public WebElement getSpouseFatherN() {
+        return spouseFatherN;
+    }
+
+    public WebElement getSpouseDateOfBirth() {
+        return spouseDateOfBirth;
+    }
+
+    public WebElement getSpousePasspN() {
+        return spousePasspN;
+    }
+
+    public WebElement getEndButton() {
+        return endButton;
     }
 }

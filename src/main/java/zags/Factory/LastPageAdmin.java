@@ -13,29 +13,65 @@ public class LastPageAdmin extends Config {
     }
 
     @FindBy(xpath = "//table/tr[last()]/td/div/button[1]")
-    public WebElement approve;
+    private WebElement approve;
 
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
-    public WebElement closeButton;
+    private WebElement closeButton;
 
     @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root MuiTableCell-alignCenter']")
-    public WebElement statusLastElement;
+    private WebElement statusLastElement;
 
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
-    public WebElement refreshButton;
+    private WebElement refreshButton;
 
     @FindBy(xpath = "//button[contains(text(), 'Закрыть')]")
-    public WebElement declineButton;
+    private WebElement declineButton;
 
     @FindBy(xpath = "//table/tr[last()]")
-    public WebElement lastElement;
+    private WebElement lastElement;
 
     @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о браке')]")
-    public WebElement marriageProof;
+    private WebElement marriageProof;
 
     @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о рождении')]")
-    public WebElement birthProof;
+    private WebElement birthProof;
 
     @FindBy(xpath = "//tr[last()]/td[@class='MuiTableCell-root' and contains(text(), 'Получение свидетельства о смерти')]")
-    public WebElement deathProof;
+    private WebElement deathProof;
+
+    public WebElement getApprove() {
+        return approve;
+    }
+
+    public WebElement getCloseButton() {
+        return closeButton;
+    }
+
+    public WebElement getStatusLastElement() {
+        return statusLastElement;
+    }
+
+    public WebElement getRefreshButton() {
+        return refreshButton;
+    }
+
+    public WebElement getDeclineButton() {
+        return declineButton;
+    }
+
+    public WebElement getLastElement() {
+        return lastElement;
+    }
+
+    public WebElement getMarriageProof() {
+        return marriageProof;
+    }
+
+    public WebElement getBirthProof() {
+        return birthProof;
+    }
+
+    public WebElement getDeathProof() {
+        return deathProof;
+    }
 }

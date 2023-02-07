@@ -13,44 +13,72 @@ public class CivillianForm extends Config {
     }
 
     @FindBy(xpath = "//input[@id='TextInputField-7']")
-    public WebElement lastName;
+    private WebElement lastName;
 
     @FindBy(xpath = "//input[@id='TextInputField-8']")
-    public WebElement firstName;
+    private WebElement firstName;
 
     @FindBy(xpath = "//input[@id='TextInputField-9']")
-    public WebElement fathersName;
+    private WebElement fathersName;
 
     @FindBy(xpath = "//input[@id='TextInputField-10']")
-    public WebElement dateOfBirth;
+    private WebElement dateOfBirth;
 
     @FindBy(xpath = "//input[@id='TextInputField-11']")
-    public WebElement passportNumber;
+    private WebElement passportNumber;
 
     @FindBy(xpath = "//input[@id='TextInputField-12']")
-    public WebElement sex;
+    private WebElement sex;
 
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
-    public WebElement nextButton;
+    private WebElement nextButton;
 
     public void fillCivillForm(String surname, String name, String father, String date, String passport, String gender) {
-        lastName.click();
-        lastName.sendKeys(surname);
+        getLastName().click();
+        getLastName().sendKeys(surname);
 
-        firstName.click();
-        firstName.sendKeys(name);
+        getFirstName().click();
+        getFirstName().sendKeys(name);
 
-        fathersName.click();
-        fathersName.sendKeys(father);
+        getFathersName().click();
+        getFathersName().sendKeys(father);
 
-        dateOfBirth.click();
-        dateOfBirth.sendKeys(date);
+        getDateOfBirth().click();
+        getDateOfBirth().sendKeys(date);
 
-        passportNumber.click();
-        passportNumber.sendKeys(passport);
+        getPassportNumber().click();
+        getPassportNumber().sendKeys(passport);
 
-        sex.click();
-        sex.sendKeys(gender);
+        getSex().click();
+        getSex().sendKeys(gender);
 
+    }
+
+    public WebElement getLastName() {
+        return lastName;
+    }
+
+    public WebElement getFirstName() {
+        return firstName;
+    }
+
+    public WebElement getFathersName() {
+        return fathersName;
+    }
+
+    public WebElement getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public WebElement getPassportNumber() {
+        return passportNumber;
+    }
+
+    public WebElement getSex() {
+        return sex;
+    }
+
+    public WebElement getNextButton() {
+        return nextButton;
     }
 }

@@ -13,19 +13,31 @@ public class DeathService extends Config {
     }
 
     @FindBy(xpath = "//input[@id='TextInputField-13']")
-    public WebElement deathDate;
+    private WebElement deathDate;
 
     @FindBy(xpath = "//input[@id='TextInputField-14']")
-    public WebElement placeOfDeath;
+    private WebElement placeOfDeath;
 
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
-    public WebElement endButton;
+    private WebElement endButton;
 
     public void fillDeathForm(String date, String place){
-        deathDate.click();
-        deathDate.sendKeys(date);
+        getDeathDate().click();
+        getDeathDate().sendKeys(date);
 
-        placeOfDeath.click();
-        placeOfDeath.sendKeys(place);
+        getPlaceOfDeath().click();
+        getPlaceOfDeath().sendKeys(place);
+    }
+
+    public WebElement getDeathDate() {
+        return deathDate;
+    }
+
+    public WebElement getPlaceOfDeath() {
+        return placeOfDeath;
+    }
+
+    public WebElement getEndButton() {
+        return endButton;
     }
 }

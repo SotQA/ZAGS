@@ -13,23 +13,39 @@ public class BirthService extends Config {
     }
 
     @FindBy(xpath = "//input[@id='TextInputField-13']")
-    public WebElement placeOfBirth;
+    private WebElement placeOfBirth;
 
     @FindBy(xpath = "//input[@id='TextInputField-14']")
-    public WebElement mother;
+    private WebElement mother;
 
     @FindBy(xpath = "//input[@id='TextInputField-15']")
-    public WebElement father;
+    private WebElement father;
 
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
-    public WebElement endButton;
+    private WebElement endButton;
 
     public void fillBirthForm(String birthPlace, String motherInfo, String fatherInfo) {
-        placeOfBirth.click();
-        placeOfBirth.sendKeys(birthPlace);
-        mother.click();
-        mother.sendKeys(motherInfo);
-        father.click();
-        father.sendKeys(fatherInfo);
+        getPlaceOfBirth().click();
+        getPlaceOfBirth().sendKeys(birthPlace);
+        getMother().click();
+        getMother().sendKeys(motherInfo);
+        getFather().click();
+        getFather().sendKeys(fatherInfo);
+    }
+
+    public WebElement getPlaceOfBirth() {
+        return placeOfBirth;
+    }
+
+    public WebElement getMother() {
+        return mother;
+    }
+
+    public WebElement getFather() {
+        return father;
+    }
+
+    public WebElement getEndButton() {
+        return endButton;
     }
 }
