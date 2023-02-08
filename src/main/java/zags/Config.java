@@ -5,9 +5,13 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class Config {
-    public static WebDriver driver = new ChromeDriver();
-    public WebDriverWait wait;
+public abstract class Config {
+    protected static WebDriver driver = new ChromeDriver();
+    protected static WebDriverWait wait;
+
+    public WebDriverWait getWait() {
+        return wait;
+    }
 
     public static WebDriver getDriver() {
         return driver;

@@ -33,6 +33,20 @@ public class ApplicantForm extends Config {
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
     private WebElement nextButton;
 
+    @FindBy(xpath = "//b")
+    private WebElement accountTitle;
+
+    @FindBy(xpath = "//span[contains(text(), 'Вы выбрали услугу: ')]")
+    private WebElement serviceTitle;
+
+    public WebElement getPageTitle() {
+        return serviceTitle;
+    }
+
+    public WebElement getServiceTitle() {
+        return serviceTitle;
+    }
+
     public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ){
         getLastName().click();
         getLastName().sendKeys(surname);

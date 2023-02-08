@@ -4,26 +4,35 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.TimeoutException;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-import org.testng.Assert;
+import org.testng.asserts.SoftAssert;
 import zags.Config;
 import zags.Factory.*;
 
 import java.time.Duration;
 
 public class BasicTests extends Config {
+
+    static SoftAssert softAssert = new SoftAssert();
+
     @BeforeEach
     public void testsConfiguration() {
         driver.get("https://user:senlatest@regoffice.senla.eu/");
         driver.manage().window().maximize();
     }
 
+    @AfterEach
+    public void tearDown() {
+        softAssert.assertAll();
+    }
+
     @AfterAll
-    public static void tearDown() {
+    public static void tearDownAll() {
         driver.close();
         driver.quit();
     }
 
     @Test
+    @DisplayName("Marriage registration test with admin application estimation.")
     public void marriageApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -35,12 +44,13 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-        Assert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
-        Assert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
-        Assert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
-        Assert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
+
+        softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
+        softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
+        softAssert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
+        softAssert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
         form.getNextButton().click();
 
         ServiceChoice choice = new ServiceChoice(driver);
@@ -48,28 +58,28 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
-        Assert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
-//        Assert.assertEquals(civilForm.dateOfBirth.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
-        Assert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
+        softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
+        softAssert.assertEquals(civilForm.getDateOfBirth().getAttribute("value"), "1999-06-22", "Civilform -marriage registration -date of birth field.");
+        softAssert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
+        softAssert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
         civilForm.getNextButton().click();
 
         ServiceInfo service = new ServiceInfo(driver);
         service.fillServiceInfo("22061999", "Uzumaki", "Hjugo", "Hinata", "Hockage", "22061999", "1234432");
-//        Assert.assertEquals(service.regDate.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(service.getNewLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(service.getSpouseLastN().getAttribute("value"), "Hjugo");
-        Assert.assertEquals(service.getSpouseFirstN().getAttribute("value"), "Hinata");
-        Assert.assertEquals(service.getSpouseFatherN().getAttribute("value"), "Hockage");
-//        Assert.assertEquals(service.spouseDateOfBirth.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(service.getSpousePasspN().getAttribute("value"), "1234432");
+        softAssert.assertEquals(service.getRegDate().getAttribute("value"), "1999-06-22", "Serviceinfo -marriage registration -regdate field.");
+        softAssert.assertEquals(service.getNewLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(service.getSpouseLastN().getAttribute("value"), "Hjugo");
+        softAssert.assertEquals(service.getSpouseFirstN().getAttribute("value"), "Hinata");
+        softAssert.assertEquals(service.getSpouseFatherN().getAttribute("value"), "Hockage");
+        softAssert.assertEquals(service.getSpouseDateOfBirth().getAttribute("value"), "1999-06-22", "Serviceinfo -marriage registration -date of birth field.");
+        softAssert.assertEquals(service.getSpousePasspN().getAttribute("value"), "1234432");
         service.getEndButton().click();
 
         ApplicationStatus applicationStatus = new ApplicationStatus(driver);
-        Assert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
-        Assert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
+        softAssert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
+        softAssert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
         applicationStatus.clickButton(applicationStatus.getClosePage());
 
         //Logging in as an Admin to check out the application registered
@@ -78,22 +88,22 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
-        Assert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
-        Assert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
-        Assert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
-//        Assert.assertEquals(admin.dateOfBirth.getAttribute("value"), "1999-06-22");
+        softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
+        softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
+        softAssert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
+        softAssert.assertEquals(admin.getDateOfBirth().getAttribute("value"), "1999-06-22", "Adminregscreen -marriage registration -date of birth field.");
         admin.getNextButton().click();
 
         LastPageAdmin lastPage = new LastPageAdmin(driver);
 
         try {
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr")));
+            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr")));
             js.executeScript("arguments[0].scrollIntoView(true);", lastPage.getLastElement());
         } catch (TimeoutException exception) {
             System.out.println("The table wasn't loaded in time so the second attempt to load it and to scroll down.");
-            wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr")));
+            getWait().until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//tr")));
             js.executeScript("arguments[0].scrollIntoView(true);", lastPage.getLastElement());
         }
 
@@ -104,14 +114,16 @@ public class BasicTests extends Config {
         } catch (AssertionError error) {
             System.out.println("The button is not correct.");
         }
-        Assert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
-        Assert.assertEquals(lastPage.getMarriageProof().getText(), "Получение свидетельства о браке");
+        softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
+        softAssert.assertEquals(lastPage.getMarriageProof().getText(), "Получение свидетельства о браке");
         lastPage.getCloseButton().click();
 
         driver.navigate().refresh();
+
     }
 
     @Test
+    @DisplayName("Birth registration test with admin application estimation.")
     public void birthApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -123,12 +135,12 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-        Assert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
-        Assert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
-        Assert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
-        Assert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
+        softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
+        softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
+        softAssert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
+        softAssert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
         form.getNextButton().click();
 
         ServiceChoice choice = new ServiceChoice(driver);
@@ -136,24 +148,24 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
-        Assert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
-//        Assert.assertEquals(civilForm.dateOfBirth.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
-        Assert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
+        softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
+        softAssert.assertEquals(civilForm.getDateOfBirth().getAttribute("value"), "1999-06-22", "Civilform -birth registration -date of birth field.");
+        softAssert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
+        softAssert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
         civilForm.getNextButton().click();
 
         BirthService birthService = new BirthService(driver);
         birthService.fillBirthForm("Konoha", "Kinaha", "Hokagefourth");
-        Assert.assertEquals("Konoha", birthService.getPlaceOfBirth().getAttribute("value"));
-        Assert.assertEquals("Kinaha", birthService.getMother().getAttribute("value"));
-        Assert.assertEquals("Hokagefourth", birthService.getFather().getAttribute("value"));
+        softAssert.assertEquals("Konoha", birthService.getPlaceOfBirth().getAttribute("value"));
+        softAssert.assertEquals("Kinaha", birthService.getMother().getAttribute("value"));
+        softAssert.assertEquals("Hokagefourth", birthService.getFather().getAttribute("value"));
         birthService.getEndButton().click();
 
         ApplicationStatus applicationStatus = new ApplicationStatus(driver);
-        Assert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
-        Assert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
+        softAssert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
+        softAssert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
         applicationStatus.clickButton(applicationStatus.getClosePage());
 
         //Start of admin checking out the application to approve
@@ -161,12 +173,12 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
-        Assert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
-        Assert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
-        Assert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
-//        Assert.assertEquals(admin.dateOfBirth.getAttribute("value"), "1999-06-22");
+        softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
+        softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
+        softAssert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
+        softAssert.assertEquals(admin.getDateOfBirth().getAttribute("value"), "1999-06-22", "Adminregscreen -birth registration -date of birth field.");
         admin.getNextButton().click();
 
         LastPageAdmin lastPage = new LastPageAdmin(driver);
@@ -188,16 +200,18 @@ public class BasicTests extends Config {
         } catch (AssertionError error) {
             System.out.println("The button is not correct.");
         }
-        Assert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
-        Assert.assertEquals(lastPage.getBirthProof().getText(), "Получение свидетельства о рождении");
+        softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
+        softAssert.assertEquals(lastPage.getBirthProof().getText(), "Получение свидетельства о рождении");
         lastPage.getCloseButton().click();
 
-        Assert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
+        softAssert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
 
         driver.navigate().refresh();
+
     }
 
     @Test
+    @DisplayName("Death registration test with admin application estimation.")
     public void deathApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -209,12 +223,12 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-        Assert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
-        Assert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
-        Assert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
-        Assert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
+        softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
+        softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
+        softAssert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
+        softAssert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
         form.getNextButton().click();
 
         ServiceChoice choice = new ServiceChoice(driver);
@@ -222,23 +236,23 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
-        Assert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
-//        Assert.assertEquals(civilForm.dateOfBirth.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
-        Assert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
+        softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
+        softAssert.assertEquals(civilForm.getDateOfBirth().getAttribute("value"), "1999-06-22", "Civilform -death registration -date of birth field.");
+        softAssert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
+        softAssert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
         civilForm.getNextButton().click();
 
         DeathService deathService = new DeathService(driver);
         deathService.fillDeathForm("22061999", "Hollywood");
-//        Assert.assertEquals(deathService.deathDate.getAttribute("value"), "1999-06-22");
-        Assert.assertEquals(deathService.getPlaceOfDeath().getAttribute("value"), "Hollywood");
+        softAssert.assertEquals(deathService.getDeathDate().getAttribute("value"), "1999-06-22", "Deathservice -death registration -date of death field.");
+        softAssert.assertEquals(deathService.getPlaceOfDeath().getAttribute("value"), "Hollywood");
         deathService.getEndButton().click();
 
         ApplicationStatus applicationStatus = new ApplicationStatus(driver);
-        Assert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
-        Assert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
+        softAssert.assertEquals(applicationStatus.getThanksForApplication().getText(), "Спасибо за обращение!");
+        softAssert.assertEquals(applicationStatus.getApplicationStatus().getText(), "Ваша заявка отправлена на рассмотрение.");
         applicationStatus.getClosePage().click();
 
 
@@ -247,12 +261,12 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
-        Assert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
-        Assert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
-        Assert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
-        Assert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
-        Assert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
-//        Assert.assertEquals(admin.dateOfBirth.getAttribute("value"), "1999-06-22");
+        softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
+        softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
+        softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
+        softAssert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
+        softAssert.assertEquals(admin.getDateOfBirth().getAttribute("value"), "1999-06-22", "Adminregscreen -death registration -date of birth field.");
         admin.getNextButton().click();
 
         LastPageAdmin lastPage = new LastPageAdmin(driver);
@@ -275,13 +289,14 @@ public class BasicTests extends Config {
             System.out.println("The button is not correct.");
         }
 
-        Assert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button is incorrect. Must be \"Одобрена\" .");
-        Assert.assertEquals(lastPage.getDeathProof().getText(), "Получение свидетельства о смерти");
+        softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button is incorrect. Must be \"Одобрена\" .");
+        softAssert.assertEquals(lastPage.getDeathProof().getText(), "Получение свидетельства о смерти");
 
         lastPage.getCloseButton().click();
 
-        Assert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
+        softAssert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
 
         driver.navigate().refresh();
+
     }
 }
