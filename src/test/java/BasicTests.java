@@ -1,3 +1,7 @@
+import io.qameta.allure.Attachment;
+import io.qameta.allure.Severity;
+import io.qameta.allure.SeverityLevel;
+import io.qameta.allure.Story;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -12,11 +16,12 @@ import java.time.Duration;
 
 public class BasicTests extends Config {
 
-    static SoftAssert softAssert = new SoftAssert();
+    public static SoftAssert softAssert = new SoftAssert();
+
 
     @BeforeEach
     public void testsConfiguration() {
-        driver.get("https://user:senlatest@regoffice.senla.eu/");
+        driver.get(getURL());
         driver.manage().window().maximize();
     }
 
@@ -32,7 +37,10 @@ public class BasicTests extends Config {
     }
 
     @Test
-    @DisplayName("Marriage registration test with admin application estimation.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Attachment(value = "Screenshot", type = "image/png")
+    @DisplayName("Marriage registration test")
+    @Story("Marriage registration with admin application approve.")
     public void marriageApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -123,7 +131,10 @@ public class BasicTests extends Config {
     }
 
     @Test
-    @DisplayName("Birth registration test with admin application estimation.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Attachment(value = "Screenshot", type = "image/png")
+    @DisplayName("Birth registration test")
+    @Story("Birth registration with admin application approve.")
     public void birthApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
@@ -211,7 +222,10 @@ public class BasicTests extends Config {
     }
 
     @Test
-    @DisplayName("Death registration test with admin application estimation.")
+    @Severity(SeverityLevel.CRITICAL)
+    @Attachment(value = "Screenshot", type = "image/png")
+    @DisplayName("Death registration test")
+    @Story("Death registration with admin application approve.")
     public void deathApplicationTest() {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;

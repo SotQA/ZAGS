@@ -60,6 +60,7 @@ public class AdminRegScreen extends Config {
     @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
     private WebElement nextButton;
 
+
     public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) {
         getLastName().click();
         getLastName().sendKeys(surname);
