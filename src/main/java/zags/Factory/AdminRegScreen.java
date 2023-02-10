@@ -10,7 +10,7 @@ public class AdminRegScreen extends Config {
         this.driver = driver;
         org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
-
+    
     public WebElement getLastName() {
         return lastName;
     }

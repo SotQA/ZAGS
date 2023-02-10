@@ -1,23 +1,22 @@
-import io.qameta.allure.Attachment;
-import io.qameta.allure.Severity;
-import io.qameta.allure.SeverityLevel;
-import io.qameta.allure.Story;
+import io.qameta.allure.*;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
-import org.openqa.selenium.By;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.TimeoutException;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
 import zags.Config;
 import zags.Factory.*;
 
+import java.io.File;
+import java.io.IOException;
 import java.time.Duration;
 
+@Epic("E2E Tests")
 public class BasicTests extends Config {
 
     public static SoftAssert softAssert = new SoftAssert();
-
+    File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
     @BeforeEach
     public void testsConfiguration() {
@@ -37,11 +36,11 @@ public class BasicTests extends Config {
     }
 
     @Test
+    @Attachment
     @Severity(SeverityLevel.CRITICAL)
-    @Attachment(value = "Screenshot", type = "image/png")
     @DisplayName("Marriage registration test")
     @Story("Marriage registration with admin application approve.")
-    public void marriageApplicationTest() {
+    public void marriageApplicationTest() throws IOException {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
@@ -52,7 +51,7 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
@@ -66,6 +65,7 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
@@ -76,6 +76,7 @@ public class BasicTests extends Config {
 
         ServiceInfo service = new ServiceInfo(driver);
         service.fillServiceInfo("22061999", "Uzumaki", "Hjugo", "Hinata", "Hockage", "22061999", "1234432");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(service.getRegDate().getAttribute("value"), "1999-06-22", "Serviceinfo -marriage registration -regdate field.");
         softAssert.assertEquals(service.getNewLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(service.getSpouseLastN().getAttribute("value"), "Hjugo");
@@ -96,6 +97,7 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
@@ -124,6 +126,7 @@ public class BasicTests extends Config {
         }
         softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
         softAssert.assertEquals(lastPage.getMarriageProof().getText(), "Получение свидетельства о браке");
+        Allure.addAttachment("Application complete.", FileUtils.openInputStream(screenshotAs));
         lastPage.getCloseButton().click();
 
         driver.navigate().refresh();
@@ -135,7 +138,7 @@ public class BasicTests extends Config {
     @Attachment(value = "Screenshot", type = "image/png")
     @DisplayName("Birth registration test")
     @Story("Birth registration with admin application approve.")
-    public void birthApplicationTest() {
+    public void birthApplicationTest() throws IOException {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
@@ -146,6 +149,7 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
@@ -159,6 +163,7 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
@@ -169,6 +174,7 @@ public class BasicTests extends Config {
 
         BirthService birthService = new BirthService(driver);
         birthService.fillBirthForm("Konoha", "Kinaha", "Hokagefourth");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals("Konoha", birthService.getPlaceOfBirth().getAttribute("value"));
         softAssert.assertEquals("Kinaha", birthService.getMother().getAttribute("value"));
         softAssert.assertEquals("Hokagefourth", birthService.getFather().getAttribute("value"));
@@ -184,6 +190,7 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
@@ -213,6 +220,7 @@ public class BasicTests extends Config {
         }
         softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button didn't change its status.");
         softAssert.assertEquals(lastPage.getBirthProof().getText(), "Получение свидетельства о рождении");
+        Allure.addAttachment("Application complete", FileUtils.openInputStream(screenshotAs));
         lastPage.getCloseButton().click();
 
         softAssert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
@@ -226,7 +234,7 @@ public class BasicTests extends Config {
     @Attachment(value = "Screenshot", type = "image/png")
     @DisplayName("Death registration test")
     @Story("Death registration with admin application approve.")
-    public void deathApplicationTest() {
+    public void deathApplicationTest() throws IOException {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
@@ -237,6 +245,7 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
@@ -250,6 +259,7 @@ public class BasicTests extends Config {
 
         CivillianForm civilForm = new CivillianForm(driver);
         civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
@@ -262,6 +272,7 @@ public class BasicTests extends Config {
         deathService.fillDeathForm("22061999", "Hollywood");
         softAssert.assertEquals(deathService.getDeathDate().getAttribute("value"), "1999-06-22", "Deathservice -death registration -date of death field.");
         softAssert.assertEquals(deathService.getPlaceOfDeath().getAttribute("value"), "Hollywood");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         deathService.getEndButton().click();
 
         ApplicationStatus applicationStatus = new ApplicationStatus(driver);
@@ -275,6 +286,7 @@ public class BasicTests extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
         softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
@@ -305,12 +317,11 @@ public class BasicTests extends Config {
 
         softAssert.assertEquals(lastPage.getStatusLastElement().getText(), "Одобрена", "The button is incorrect. Must be \"Одобрена\" .");
         softAssert.assertEquals(lastPage.getDeathProof().getText(), "Получение свидетельства о смерти");
-
+        Allure.addAttachment("Application complete", FileUtils.openInputStream(screenshotAs));
         lastPage.getCloseButton().click();
 
         softAssert.assertEquals(homePage.getUserLogin().isDisplayed(), homePage.getAdminLogin().isDisplayed());
 
         driver.navigate().refresh();
-
     }
 }
