@@ -4,13 +4,12 @@ import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
 public class Config {
-    protected static WebDriver driver = new ChromeDriver();
+    protected static WebDriver driver;
     protected static WebDriverWait wait;
     private static final String URL = ("https://user:senlatest@regoffice.senla.eu/");
 
