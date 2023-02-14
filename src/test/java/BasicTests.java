@@ -1,4 +1,5 @@
 import com.google.common.collect.ImmutableMap;
+import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -17,6 +18,7 @@ import java.time.Duration;
 
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
+@Feature("Main flow of registration through 3 different users")
 public class BasicTests extends Config {
 
     public static SoftAssert softAssert = new SoftAssert();
@@ -26,10 +28,11 @@ public class BasicTests extends Config {
     public static void setAllureEnvironment() {
         allureEnvironmentWriter(
                 ImmutableMap.<String, String>builder()
-                        .put("Browser", "Chrome")
-                        .put("Browser Version", "109.0.5414.120")
+                        .put("Browser", "Google Chrome")
+                        .put("Browser Version", "110.0.5481.97")
                         .put("URL", getURL())
-                        .build());
+                        .build(), System.getProperty("user.dir")
+                + "/allure-results/");
     }
 
     @BeforeEach
