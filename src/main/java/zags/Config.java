@@ -11,6 +11,7 @@ public class Config {
     protected static WebDriver driver = new ChromeDriver();
     protected static WebDriverWait wait;
     private static final String URL = ("https://user:senlatest@regoffice.senla.eu/");
+//    File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
     public static String getURL() {
         return URL;

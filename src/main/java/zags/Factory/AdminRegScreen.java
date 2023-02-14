@@ -80,5 +80,6 @@ public class AdminRegScreen extends Config {
 
         getDateOfBirth().click();
         getDateOfBirth().sendKeys(birthDate);
+
     }
 }

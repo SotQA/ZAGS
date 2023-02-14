@@ -1,11 +1,21 @@
 package zags.Factory;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
+import org.openqa.selenium.OutputType;
+import org.openqa.selenium.TakesScreenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import zags.Config;
 
+import java.io.File;
+import java.io.IOException;
+
 public class ApplicantForm extends Config {
+
+    File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
 
     public ApplicantForm(WebDriver driver){
         this.driver = driver;
@@ -47,7 +57,8 @@ public class ApplicantForm extends Config {
         return serviceTitle;
     }
 
-    public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ){
+    @Step("Applicant form filling")
+    public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ) throws IOException {
         getLastName().click();
         getLastName().sendKeys(surname);
 
@@ -66,6 +77,7 @@ public class ApplicantForm extends Config {
         getAddress().click();
         getAddress().sendKeys(adress);
 
+        Allure.addAttachment("Filled form", FileUtils.openInputStream(screenshotAs));
     }
 
     public WebElement getLastName() {
