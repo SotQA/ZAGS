@@ -1,5 +1,4 @@
 import com.google.common.collect.ImmutableMap;
-import io.qameta.allure.Attachment;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
@@ -21,7 +20,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 public class BasicTests extends Config {
 
     public static SoftAssert softAssert = new SoftAssert();
-//    File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
 
     @BeforeAll
     public static void setAllureEnvironment() {
@@ -51,7 +50,6 @@ public class BasicTests extends Config {
     }
 
     @Test
-    @Attachment
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Marriage registration test")
     @Story("Marriage registration with admin application approve.")
@@ -66,7 +64,6 @@ public class BasicTests extends Config {
 
         ApplicantForm form = new ApplicantForm(driver);
         form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-
         softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
@@ -146,7 +143,6 @@ public class BasicTests extends Config {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Attachment
     @DisplayName("Birth registration test")
     @Story("Birth registration with admin application approve.")
     public void birthApplicationTest() throws IOException {
@@ -237,7 +233,6 @@ public class BasicTests extends Config {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Attachment
     @DisplayName("Death registration test")
     @Story("Death registration with admin application approve.")
     public void deathApplicationTest() throws IOException {

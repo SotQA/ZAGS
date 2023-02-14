@@ -1,10 +1,14 @@
 package zags.Factory;
 
+import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import zags.Config;
+
+import java.io.IOException;
 
 public class AdminRegScreen extends Config {
     public AdminRegScreen(WebDriver driver) {
@@ -61,8 +65,8 @@ public class AdminRegScreen extends Config {
     @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
     private WebElement nextButton;
 
-    @Step
-    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) {
+    @Step("Fill the admin fields")
+    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) throws IOException {
         getLastName().click();
         getLastName().sendKeys(surname);
 
@@ -81,5 +85,6 @@ public class AdminRegScreen extends Config {
         getDateOfBirth().click();
         getDateOfBirth().sendKeys(birthDate);
 
+        Allure.addAttachment("Admin form filled", FileUtils.openInputStream(getScreenshotAs()));
     }
 }

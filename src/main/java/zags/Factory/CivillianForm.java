@@ -1,14 +1,19 @@
 package zags.Factory;
 
+import io.qameta.allure.Allure;
+import io.qameta.allure.Step;
+import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import zags.Config;
 
+import java.io.IOException;
+
 public class CivillianForm extends Config {
 
     public CivillianForm(WebDriver driver){
-        this.driver = driver;
+        Config.driver = driver;
         org.openqa.selenium.support.PageFactory.initElements(driver,this);
     }
 
@@ -33,7 +38,9 @@ public class CivillianForm extends Config {
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
     private WebElement nextButton;
 
-    public void fillCivillForm(String surname, String name, String father, String date, String passport, String gender) {
+
+    @Step("Fill the civill form")
+    public void fillCivillForm(String surname, String name, String father, String date, String passport, String gender) throws IOException {
         getLastName().click();
         getLastName().sendKeys(surname);
 
@@ -51,6 +58,8 @@ public class CivillianForm extends Config {
 
         getSex().click();
         getSex().sendKeys(gender);
+
+        Allure.addAttachment("Civilian form filled", FileUtils.openInputStream(getScreenshotAs()));
 
     }
 
