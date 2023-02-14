@@ -10,9 +10,9 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class Config {
     protected static WebDriver driver = new ChromeDriver();
     protected static WebDriverWait wait;
-    private final String URL = ("https://user:senlatest@regoffice.senla.eu/");
+    private static final String URL = ("https://user:senlatest@regoffice.senla.eu/");
 
-    public String getURL() {
+    public static String getURL() {
         return URL;
     }
 

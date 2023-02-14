@@ -1,3 +1,4 @@
+import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.*;
 import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
@@ -12,11 +13,22 @@ import java.io.File;
 import java.io.IOException;
 import java.time.Duration;
 
-@Epic("E2E Tests")
+import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
+
 public class BasicTests extends Config {
 
     public static SoftAssert softAssert = new SoftAssert();
     File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
+
+    @BeforeAll
+    public static void setAllureEnvironment() {
+        allureEnvironmentWriter(
+                ImmutableMap.<String, String>builder()
+                        .put("Browser", "Chrome")
+                        .put("Browser Version", "109.0.5414.120")
+                        .put("URL", getURL())
+                        .build());
+    }
 
     @BeforeEach
     public void testsConfiguration() {
@@ -135,7 +147,7 @@ public class BasicTests extends Config {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Attachment(value = "Screenshot", type = "image/png")
+    @Attachment
     @DisplayName("Birth registration test")
     @Story("Birth registration with admin application approve.")
     public void birthApplicationTest() throws IOException {
@@ -231,7 +243,7 @@ public class BasicTests extends Config {
 
     @Test
     @Severity(SeverityLevel.CRITICAL)
-    @Attachment(value = "Screenshot", type = "image/png")
+    @Attachment
     @DisplayName("Death registration test")
     @Story("Death registration with admin application approve.")
     public void deathApplicationTest() throws IOException {

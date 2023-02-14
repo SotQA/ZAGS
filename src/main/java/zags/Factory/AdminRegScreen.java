@@ -1,5 +1,6 @@
 package zags.Factory;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -60,7 +61,7 @@ public class AdminRegScreen extends Config {
     @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
     private WebElement nextButton;
 
-
+    @Step
     public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) {
         getLastName().click();
         getLastName().sendKeys(surname);
