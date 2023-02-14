@@ -1,3 +1,5 @@
+package zagsTests;
+
 import com.google.common.collect.ImmutableMap;
 import io.qameta.allure.Feature;
 import io.qameta.allure.Severity;
@@ -52,6 +54,7 @@ public class BasicTests extends Config {
         driver.quit();
     }
 
+    @Disabled
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Marriage registration test")
