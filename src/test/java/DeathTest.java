@@ -66,7 +66,7 @@ public class DeathTest extends Config {
         homePage.getUserLogin().click();
 
         ApplicantForm form = new ApplicantForm(driver);
-        form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
+        form.fillApplicantForm(getLAST_NAME(), getFIRST_NAME(), getFATHER_NAME(), getPHONE_NUMBER(), getPASSPORT_NUMBER(), getADDRESS());
         softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");

@@ -15,7 +15,29 @@ public class AdminRegScreen extends Config {
         this.driver = driver;
         org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
-    
+
+
+    @FindBy(xpath = "(//input)[1]")
+    private WebElement lastName;
+
+    @FindBy(xpath = "(//input)[2]")
+    private WebElement firstName;
+
+    @FindBy(xpath = "(//input)[3]")
+    private WebElement fathersName;
+
+    @FindBy(xpath = "(//input)[4]")
+    private WebElement phoneNum;
+
+    @FindBy(xpath = "(//input)[5]")
+    private WebElement passportNumber;
+
+    @FindBy(xpath = "(//input)[6]")
+    private WebElement dateOfBirth;
+
+    @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
+    private WebElement nextButton;
+
     public WebElement getLastName() {
         return lastName;
     }
@@ -43,27 +65,6 @@ public class AdminRegScreen extends Config {
     public WebElement getNextButton() {
         return nextButton;
     }
-
-    @FindBy(xpath = "(//input)[1]")
-    private WebElement lastName;
-
-    @FindBy(xpath = "(//input)[2]")
-    private WebElement firstName;
-
-    @FindBy(xpath = "(//input)[3]")
-    private WebElement fathersName;
-
-    @FindBy(xpath = "(//input)[4]")
-    private WebElement phoneNum;
-
-    @FindBy(xpath = "(//input)[5]")
-    private WebElement passportNumber;
-
-    @FindBy(xpath = "(//input)[6]")
-    private WebElement dateOfBirth;
-
-    @FindBy(xpath = "//div/button[contains(text(),'Далее')]")
-    private WebElement nextButton;
 
     @Step("Fill the admin fields")
     public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) throws IOException {

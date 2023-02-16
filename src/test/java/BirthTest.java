@@ -20,6 +20,7 @@ import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnviro
 
 public class BirthTest extends Config {
 
+
     public static SoftAssert softAssert = new SoftAssert();
 
     @BeforeAll
@@ -34,6 +35,7 @@ public class BirthTest extends Config {
                         + "/allure-results/");
     }
 
+    //Google Chrome Drive Manager
     @BeforeAll
     public static void testsConfiguration() {
         driver = new ChromeDriver();
@@ -66,8 +68,8 @@ public class BirthTest extends Config {
         homePage.clickButton(homePage.getUserLogin());
 
         ApplicantForm form = new ApplicantForm(driver);
-        form.fillApplicantForm("Uzumaki", "Naruto", "Someone", "123443321", "1234543", "Konoha");
-        softAssert.assertEquals(form.getLastName().getAttribute("value"), "Uzumaki");
+        form.fillApplicantForm(getLAST_NAME(), getFIRST_NAME(), getFATHER_NAME(), getPHONE_NUMBER(), getPASSPORT_NUMBER(), getADDRESS());
+        softAssert.assertEquals(form.getLastName().getAttribute("value"), getLAST_NAME());
         softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
         softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
@@ -79,8 +81,8 @@ public class BirthTest extends Config {
         choice.clickButton(choice.getBirthReg());
 
         CivillianForm civilForm = new CivillianForm(driver);
-        civilForm.fillCivillForm("Uzumaki", "Naruto", "Hockage", "22061999", "12345432", "Male");
-        softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), "Uzumaki");
+        civilForm.fillCivillForm(getLAST_NAME(), getFIRST_NAME(), getFATHER_NAME(), getBIRTH_DATE(), getPASSPORT_NUMBER(), getGENDER());
+        softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), getLAST_NAME());
         softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
         softAssert.assertEquals(civilForm.getDateOfBirth().getAttribute("value"), "1999-06-22", "Civilform -birth registration -date of birth field.");
@@ -105,7 +107,7 @@ public class BirthTest extends Config {
 
         AdminRegScreen admin = new AdminRegScreen(driver);
         admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
-        softAssert.assertEquals(admin.getLastName().getAttribute("value"), "Uzumaki");
+        softAssert.assertEquals(admin.getLastName().getAttribute("value"), getLAST_NAME());
         softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
         softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
         softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
