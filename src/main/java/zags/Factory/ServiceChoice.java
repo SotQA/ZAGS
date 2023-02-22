@@ -7,9 +7,9 @@ import zags.BasePage;
 
 public class ServiceChoice extends BasePage {
 
-    public ServiceChoice(WebDriver driver){
+    public ServiceChoice(WebDriver driver) {
         this.driver = driver;
-        org.openqa.selenium.support.PageFactory.initElements(driver,this);
+        org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//button[contains(text(), 'Регистрация брака')]")
