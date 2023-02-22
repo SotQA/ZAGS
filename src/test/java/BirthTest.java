@@ -1,7 +1,10 @@
 import com.google.common.collect.ImmutableMap;
+import io.github.bonigarcia.wdm.WebDriverManager;
+import io.qameta.allure.Allure;
 import io.qameta.allure.Severity;
 import io.qameta.allure.SeverityLevel;
 import io.qameta.allure.Story;
+import org.apache.commons.io.FileUtils;
 import org.junit.jupiter.api.*;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
@@ -10,7 +13,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.asserts.SoftAssert;
-import zags.Config;
+import zags.BasePage;
 import zags.Factory.*;
 
 import java.io.IOException;
@@ -18,10 +21,12 @@ import java.time.Duration;
 
 import static com.github.automatedowl.tools.AllureEnvironmentWriter.allureEnvironmentWriter;
 
-public class BirthTest extends Config {
-
+public class BirthTest extends BasePage {
 
     public static SoftAssert softAssert = new SoftAssert();
+    private static final String PLACE_OF_BIRTH = "Brest";
+    private static final String MOTHER_INFO = "MamaMia";
+    private static final String FATHER_INFO = "PadreMio";
 
     @BeforeAll
     public static void setAllureEnvironment() {
@@ -35,12 +40,12 @@ public class BirthTest extends Config {
                         + "/allure-results/");
     }
 
-    //Google Chrome Drive Manager
     @BeforeAll
     public static void testsConfiguration() {
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        Config.driver.get(getURL());
-        Config.driver.manage().window().maximize();
+        BasePage.driver.get(getURL());
+        BasePage.driver.manage().window().maximize();
     }
 
     @AfterEach
@@ -57,44 +62,69 @@ public class BirthTest extends Config {
     @Test
     @Severity(SeverityLevel.CRITICAL)
     @DisplayName("Birth registration test")
-    @Story("Birth registration with admin application approve.")
+    @Story("Birth registration with admin approve.")
     public void birthApplicationTest() throws IOException {
 
         JavascriptExecutor js = (JavascriptExecutor) driver;
 
-        wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        wait = new WebDriverWait(driver, Duration.ofSeconds(20));
 
         HomePage homePage = new HomePage(driver);
         homePage.clickButton(homePage.getUserLogin());
 
         ApplicantForm form = new ApplicantForm(driver);
-        form.fillApplicantForm(getLAST_NAME(), getFIRST_NAME(), getFATHER_NAME(), getPHONE_NUMBER(), getPASSPORT_NUMBER(), getADDRESS());
+
+        form
+                .fillLastName(getLAST_NAME())
+                .fillFirstName(getFIRST_NAME())
+                .fillFatherName(getFATHER_NAME())
+                .fillPhoneNumber(getPHONE_NUMBER())
+                .fillPassportField(getPASSPORT_NUMBER())
+                .fillAddressField(getADDRESS());
+
+        Allure.addAttachment("Applicant form filled", FileUtils.openInputStream(getScreenshotAs()));
+
         softAssert.assertEquals(form.getLastName().getAttribute("value"), getLAST_NAME());
-        softAssert.assertEquals(form.getFirstName().getAttribute("value"), "Naruto");
-        softAssert.assertEquals(form.getFatherName().getAttribute("value"), "Someone");
-        softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), "123443321");
-        softAssert.assertEquals(form.getPasspNum().getAttribute("value"), "1234543");
-        softAssert.assertEquals(form.getAddress().getAttribute("value"), "Konoha");
+        softAssert.assertEquals(form.getFirstName().getAttribute("value"), getFIRST_NAME());
+        softAssert.assertEquals(form.getFatherName().getAttribute("value"), getFATHER_NAME());
+        softAssert.assertEquals(form.getPhoneNum().getAttribute("value"), getPHONE_NUMBER());
+        softAssert.assertEquals(form.getPasspNum().getAttribute("value"), getPASSPORT_NUMBER());
+        softAssert.assertEquals(form.getAddress().getAttribute("value"), getADDRESS());
         form.getNextButton().click();
 
         ServiceChoice choice = new ServiceChoice(driver);
         choice.clickButton(choice.getBirthReg());
 
         CivillianForm civilForm = new CivillianForm(driver);
-        civilForm.fillCivillForm(getLAST_NAME(), getFIRST_NAME(), getFATHER_NAME(), getBIRTH_DATE(), getPASSPORT_NUMBER(), getGENDER());
+        civilForm
+                .fillLastName(getLAST_NAME())
+                .fillFirstName(getFIRST_NAME())
+                .fillFatherNameField(getFATHER_NAME())
+                .fillBirthDateField(getBIRTH_DATE())
+                .fillPassportField(getPASSPORT_NUMBER())
+                .fillGenderField(getGENDER());
+
+        Allure.addAttachment("Civilian form filled", FileUtils.openInputStream(getScreenshotAs()));
+
         softAssert.assertEquals(civilForm.getLastName().getAttribute("value"), getLAST_NAME());
-        softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), "Naruto");
-        softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), "Hockage");
+        softAssert.assertEquals(civilForm.getFirstName().getAttribute("value"), getFIRST_NAME());
+        softAssert.assertEquals(civilForm.getFathersName().getAttribute("value"), getFATHER_NAME());
         softAssert.assertEquals(civilForm.getDateOfBirth().getAttribute("value"), "1999-06-22", "Civilform -birth registration -date of birth field.");
-        softAssert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), "12345432");
-        softAssert.assertEquals(civilForm.getSex().getAttribute("value"), "Male");
+        softAssert.assertEquals(civilForm.getPassportNumber().getAttribute("value"), getPASSPORT_NUMBER());
+        softAssert.assertEquals(civilForm.getSex().getAttribute("value"), getGENDER());
         civilForm.getNextButton().click();
 
         BirthService birthService = new BirthService(driver);
-        birthService.fillBirthForm("Konoha", "Kinaha", "Hokagefourth");
-        softAssert.assertEquals("Konoha", birthService.getPlaceOfBirth().getAttribute("value"));
-        softAssert.assertEquals("Kinaha", birthService.getMother().getAttribute("value"));
-        softAssert.assertEquals("Hokagefourth", birthService.getFather().getAttribute("value"));
+        birthService
+                .fillBirthPlaceField(PLACE_OF_BIRTH)
+                .fillMotherInfo(MOTHER_INFO)
+                .fillFatherInfo(FATHER_INFO);
+
+        Allure.addAttachment("Birth service form filled", FileUtils.openInputStream(getScreenshotAs()));
+
+        softAssert.assertEquals(birthService.getPlaceOfBirth().getAttribute("value"), PLACE_OF_BIRTH);
+        softAssert.assertEquals(birthService.getMother().getAttribute("value"), MOTHER_INFO);
+        softAssert.assertEquals(birthService.getFather().getAttribute("value"), FATHER_INFO);
         birthService.getEndButton().click();
 
         ApplicationStatus applicationStatus = new ApplicationStatus(driver);
@@ -106,12 +136,19 @@ public class BirthTest extends Config {
         homePage.clickButton(homePage.getAdminLogin());
 
         AdminRegScreen admin = new AdminRegScreen(driver);
-        admin.fillAdminForm("Uzumaki", "Naruto", "1234543", "1234432", "12345543", "22061999");
+        admin
+                .fillLastName(getLAST_NAME())
+                .fillFirstName(getFIRST_NAME())
+                .fillFatherName(getFATHER_NAME())
+                .fillPhoneNumber(getPHONE_NUMBER())
+                .fillPassportField(getPASSPORT_NUMBER())
+                .fillBirthDate(getBIRTH_DATE());
+
         softAssert.assertEquals(admin.getLastName().getAttribute("value"), getLAST_NAME());
-        softAssert.assertEquals(admin.getFirstName().getAttribute("value"), "Naruto");
-        softAssert.assertEquals(admin.getFathersName().getAttribute("value"), "1234543");
-        softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), "1234432");
-        softAssert.assertEquals(admin.getPassportNumber().getAttribute("value"), "12345543");
+        softAssert.assertEquals(admin.getFirstName().getAttribute("value"), getFIRST_NAME());
+        softAssert.assertEquals(admin.getFathersName().getAttribute("value"), getFATHER_NAME());
+        softAssert.assertEquals(admin.getPhoneNum().getAttribute("value"), getPHONE_NUMBER());
+        softAssert.assertEquals(admin.getPassportNumber().getAttribute("value"), getPASSPORT_NUMBER());
         softAssert.assertEquals(admin.getDateOfBirth().getAttribute("value"), "1999-06-22", "Adminregscreen -birth registration -date of birth field.");
         admin.getNextButton().click();
 

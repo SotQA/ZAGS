@@ -1,12 +1,13 @@
 package zags.Factory;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class ServiceInfo extends Config {
+public class ServiceInfo extends BasePage {
     JavascriptExecutor js = (JavascriptExecutor) driver;
 
     public ServiceInfo(WebDriver driver) {
@@ -38,36 +39,6 @@ public class ServiceInfo extends Config {
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
     private WebElement endButton;
 
-    public void fillServiceInfo(String registrationDate, String lastName,
-                                String spouseLastName, String spouseName,
-                                String spouseFatherName, String spouseBirthDate,
-                                String spousePassortN)
-    {
-        getRegDate().click();
-        getRegDate().sendKeys(registrationDate);
-
-        getNewLastName().click();
-        getNewLastName().sendKeys(lastName);
-
-        getSpouseLastN().click();
-        getSpouseLastN().sendKeys(spouseLastName);
-
-        getSpouseFirstN().click();
-        getSpouseFirstN().sendKeys(spouseName);
-
-        getSpouseFatherN().click();
-        getSpouseFatherN().sendKeys(spouseFatherName);
-
-        js.executeScript("arguments[0].scrollIntoView(true);", getSpousePasspN());
-
-        getSpouseDateOfBirth().click();
-        getSpouseDateOfBirth().sendKeys(spouseBirthDate);
-
-        getSpousePasspN().click();
-        getSpousePasspN().sendKeys(spousePassortN);
-
-    }
-
     public WebElement getRegDate() {
         return regDate;
     }
@@ -98,5 +69,54 @@ public class ServiceInfo extends Config {
 
     public WebElement getEndButton() {
         return endButton;
+    }
+
+    @Step("1.Fill registration date field")
+    public ServiceInfo fillRegDateField(String regDate) {
+        getRegDate().click();
+        getRegDate().sendKeys(regDate);
+        return this;
+    }
+
+    @Step("2.Fill new last name field.")
+    public ServiceInfo fillNewLastNameField(String lastName) {
+        getNewLastName().click();
+        getNewLastName().sendKeys(lastName);
+        return this;
+    }
+
+    @Step("3.Fill spouse last name field.")
+    public ServiceInfo fillSpouseLastNameField(String spouseLastName) {
+        getSpouseLastN().click();
+        getSpouseLastN().sendKeys(spouseLastName);
+        return this;
+    }
+
+    @Step("4.Fill spouse first name field.")
+    public ServiceInfo fillSpouseFirstNameField(String spouseName) {
+        getSpouseFirstN().click();
+        getSpouseFirstN().sendKeys(spouseName);
+        return this;
+    }
+
+    @Step("5.Fill spouse father name field.")
+    public ServiceInfo fillSpouseFatherNameField(String spouseFatherName) {
+        getSpouseFatherN().click();
+        getSpouseFatherN().sendKeys(spouseFatherName);
+        return this;
+    }
+
+    @Step("6.Fill spouse birth date field. ")
+    public ServiceInfo fillSpouseBirthDate(String birthDate) {
+        getSpouseDateOfBirth().click();
+        getSpouseDateOfBirth().sendKeys(birthDate);
+        return this;
+    }
+
+    @Step("7.Fill spouse passport number field.")
+    public ServiceInfo fillSpousePassportNumField(String passportNumber) {
+        getSpousePasspN().click();
+        getSpousePasspN().sendKeys(passportNumber);
+        return this;
     }
 }

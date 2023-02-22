@@ -3,9 +3,9 @@ package zags.Factory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class ApplicationStatus extends Config {
+public class ApplicationStatus extends BasePage {
 
     public ApplicationStatus(WebDriver driver) {
         this.driver = driver;

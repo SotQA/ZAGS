@@ -1,20 +1,16 @@
 package zags.Factory;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-import java.io.IOException;
+public class CivillianForm extends BasePage {
 
-public class CivillianForm extends Config {
-
-    public CivillianForm(WebDriver driver){
-        Config.driver = driver;
-        org.openqa.selenium.support.PageFactory.initElements(driver,this);
+    public CivillianForm(WebDriver driver) {
+        BasePage.driver = driver;
+        org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//input[@id='TextInputField-7']")
@@ -37,33 +33,6 @@ public class CivillianForm extends Config {
 
     @FindBy(xpath = "//div/button[contains(text(), 'Далее')]")
     private WebElement nextButton;
-
-
-    @Step("Fill the civill form")
-    public void fillCivillForm(String surname, String name, String father, String date, String passport, String gender) throws IOException {
-        getLastName().click();
-        getLastName().sendKeys(surname);
-
-        getFirstName().click();
-        getFirstName().sendKeys(name);
-
-        getFathersName().click();
-        getFathersName().sendKeys(father);
-
-        getDateOfBirth().click();
-        getDateOfBirth().sendKeys(date);
-
-        getPassportNumber().click();
-        getPassportNumber().sendKeys(passport);
-
-        getSex().click();
-        getSex().sendKeys(gender);
-
-        Allure.addAttachment("Civilian form filled", FileUtils.openInputStream(getScreenshotAs()));
-
-    }
-
-
 
     public WebElement getLastName() {
         return lastName;
@@ -91,5 +60,46 @@ public class CivillianForm extends Config {
 
     public WebElement getNextButton() {
         return nextButton;
+    }
+
+    @Step("1.Fill last name field")
+    public CivillianForm fillLastName(String lastName) {
+        getLastName().click();
+        getLastName().sendKeys(lastName);
+        return this;
+    }
+
+    @Step("2.Fill first name field.")
+    public CivillianForm fillFirstName(String firstName) {
+        getFirstName().click();
+        getFirstName().sendKeys(firstName);
+        return this;
+    }
+
+    @Step("3.Fill father name field.")
+    public CivillianForm fillFatherNameField(String fatherName) {
+        getFathersName().click();
+        getFathersName().sendKeys(fatherName);
+        return this;
+    }
+
+    @Step("4.Fill birth date field.")
+    public CivillianForm fillBirthDateField(String birthDate) {
+        getDateOfBirth().click();
+        getDateOfBirth().sendKeys(birthDate);
+        return this;
+    }
+
+    @Step("5.Fill passport field.")
+    public CivillianForm fillPassportField(String passportNumber) {
+        getPassportNumber().click();
+        getPassportNumber().sendKeys(passportNumber);
+        return this;
+    }
+
+    @Step("6.Fill gender field.")
+    public void fillGenderField(String gender) {
+        getSex().click();
+        getSex().sendKeys(gender);
     }
 }

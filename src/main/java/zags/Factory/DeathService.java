@@ -1,11 +1,12 @@
 package zags.Factory;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class DeathService extends Config {
+public class DeathService extends BasePage {
 
     public DeathService(WebDriver driver) {
         this.driver = driver;
@@ -21,14 +22,6 @@ public class DeathService extends Config {
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
     private WebElement endButton;
 
-    public void fillDeathForm(String date, String place){
-        getDeathDate().click();
-        getDeathDate().sendKeys(date);
-
-        getPlaceOfDeath().click();
-        getPlaceOfDeath().sendKeys(place);
-    }
-
     public WebElement getDeathDate() {
         return deathDate;
     }
@@ -39,5 +32,17 @@ public class DeathService extends Config {
 
     public WebElement getEndButton() {
         return endButton;
+    }
+    @Step("1.Fill death date field.")
+    public DeathService fillDeathDateField(String deathDate) {
+        getDeathDate().click();
+        getDeathDate().sendKeys(deathDate);
+        return this;
+    }
+    @Step("2.Fill place of death field.")
+    public DeathService fillPlaceOfDeath(String deathPlace) {
+        getPlaceOfDeath().click();
+        getPlaceOfDeath().sendKeys(deathPlace);
+        return this;
     }
 }

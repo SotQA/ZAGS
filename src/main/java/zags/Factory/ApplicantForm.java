@@ -1,22 +1,16 @@
 package zags.Factory;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-import java.io.IOException;
+public class ApplicantForm extends BasePage {
 
-public class ApplicantForm extends Config {
-
-//    File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-
-    public ApplicantForm(WebDriver driver){
+    public ApplicantForm(WebDriver driver) {
         this.driver = driver;
-        org.openqa.selenium.support.PageFactory.initElements(driver,this);
+        org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
 
     @FindBy(xpath = "//div/input[@placeholder='Введите фамилию (минимум 2 символа)']")
@@ -54,29 +48,6 @@ public class ApplicantForm extends Config {
         return serviceTitle;
     }
 
-    @Step("Applicant form filling")
-    public void fillApplicantForm(String surname, String name, String father, String phone, String passport, String adress ) throws IOException {
-        getLastName().click();
-        getLastName().sendKeys(surname);
-
-        getFirstName().click();
-        getFirstName().sendKeys(name);
-
-        getFatherName().click();
-        getFatherName().sendKeys(father);
-
-        getPhoneNum().click();
-        getPhoneNum().sendKeys(phone);
-
-        getPasspNum().click();
-        getPasspNum().sendKeys(passport);
-
-        getAddress().click();
-        getAddress().sendKeys(adress);
-
-        Allure.addAttachment("Applicant form filled", FileUtils.openInputStream(getScreenshotAs()));
-    }
-
     public WebElement getLastName() {
         return lastName;
     }
@@ -103,5 +74,46 @@ public class ApplicantForm extends Config {
 
     public WebElement getNextButton() {
         return nextButton;
+    }
+
+    @Step("1.Fill last name field")
+    public ApplicantForm fillLastName(String lastName) {
+        getLastName().click();
+        getLastName().sendKeys(lastName);
+        return this;
+    }
+
+    @Step("2.Fill first name field")
+    public ApplicantForm fillFirstName(String firstName) {
+        getFirstName().click();
+        getFirstName().sendKeys(firstName);
+        return this;
+    }
+
+    @Step("3.Fill father name field")
+    public ApplicantForm fillFatherName(String fatherName) {
+        getFatherName().click();
+        getFatherName().sendKeys(fatherName);
+        return this;
+    }
+
+    @Step("4.Fill phone number field")
+    public ApplicantForm fillPhoneNumber(String number) {
+        getPhoneNum().click();
+        getPhoneNum().sendKeys(number);
+        return this;
+    }
+
+    @Step("5.Fill passport field")
+    public ApplicantForm fillPassportField(String passport) {
+        getPasspNum().click();
+        getPasspNum().sendKeys(passport);
+        return this;
+    }
+
+    @Step("6.Fill address field")
+    public void fillAddressField(String address) {
+        getAddress().click();
+        getAddress().sendKeys(address);
     }
 }

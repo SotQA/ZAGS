@@ -1,21 +1,16 @@
 package zags.Factory;
 
-import io.qameta.allure.Allure;
 import io.qameta.allure.Step;
-import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-import java.io.IOException;
-
-public class AdminRegScreen extends Config {
+public class AdminRegScreen extends BasePage {
     public AdminRegScreen(WebDriver driver) {
         this.driver = driver;
         org.openqa.selenium.support.PageFactory.initElements(driver, this);
     }
-
 
     @FindBy(xpath = "(//input)[1]")
     private WebElement lastName;
@@ -66,26 +61,45 @@ public class AdminRegScreen extends Config {
         return nextButton;
     }
 
-    @Step("Fill the admin fields")
-    public void fillAdminForm(String surname, String name, String father, String phone, String passport, String birthDate) throws IOException {
+    @Step("1.Fill last name field.")
+    public AdminRegScreen fillLastName(String lastName) {
         getLastName().click();
-        getLastName().sendKeys(surname);
+        getLastName().sendKeys(lastName);
+        return this;
+    }
 
+    @Step("2.Fill first name field.")
+    public AdminRegScreen fillFirstName(String firstName) {
         getFirstName().click();
-        getFirstName().sendKeys(name);
+        getFirstName().sendKeys(firstName);
+        return this;
+    }
 
+    @Step("3.Fill father name field.")
+    public AdminRegScreen fillFatherName(String fatherName) {
         getFathersName().click();
-        getFathersName().sendKeys(father);
+        getFathersName().sendKeys(fatherName);
+        return this;
+    }
 
+    @Step("4.Fill phone number field.")
+    public AdminRegScreen fillPhoneNumber(String number) {
         getPhoneNum().click();
-        getPhoneNum().sendKeys(phone);
+        getPhoneNum().sendKeys(number);
+        return this;
+    }
 
+    @Step("5.Fill passport field.")
+    public AdminRegScreen fillPassportField(String passport) {
         getPassportNumber().click();
         getPassportNumber().sendKeys(passport);
+        return this;
+    }
 
+    @Step("6.Fill birth date field.")
+    public AdminRegScreen fillBirthDate(String birth) {
         getDateOfBirth().click();
-        getDateOfBirth().sendKeys(birthDate);
-
-        Allure.addAttachment("Admin form filled", FileUtils.openInputStream(getScreenshotAs()));
+        getDateOfBirth().sendKeys(birth);
+        return this;
     }
 }

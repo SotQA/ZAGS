@@ -1,11 +1,12 @@
 package zags.Factory;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class BirthService extends Config {
+public class BirthService extends BasePage {
 
     public BirthService(WebDriver driver) {
         this.driver = driver;
@@ -24,15 +25,6 @@ public class BirthService extends Config {
     @FindBy(xpath = "//button[contains(text(), 'Завершить')]")
     private WebElement endButton;
 
-    public void fillBirthForm(String birthPlace, String motherInfo, String fatherInfo) {
-        getPlaceOfBirth().click();
-        getPlaceOfBirth().sendKeys(birthPlace);
-        getMother().click();
-        getMother().sendKeys(motherInfo);
-        getFather().click();
-        getFather().sendKeys(fatherInfo);
-    }
-
     public WebElement getPlaceOfBirth() {
         return placeOfBirth;
     }
@@ -47,5 +39,23 @@ public class BirthService extends Config {
 
     public WebElement getEndButton() {
         return endButton;
+    }
+    @Step("1.Fill birth place field.")
+    public BirthService fillBirthPlaceField(String birthPlace) {
+        getPlaceOfBirth().click();
+        getPlaceOfBirth().sendKeys(birthPlace);
+        return this;
+    }
+    @Step("2.Fill mother info field.")
+    public BirthService fillMotherInfo(String motherInfo) {
+        getMother().click();
+        getMother().sendKeys(motherInfo);
+        return this;
+    }
+    @Step("3.Fill father info field.")
+    public BirthService fillFatherInfo(String fatherInfo) {
+        getFather().click();
+        getFather().sendKeys(fatherInfo);
+        return this;
     }
 }

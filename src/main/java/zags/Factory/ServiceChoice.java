@@ -3,9 +3,9 @@ package zags.Factory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class ServiceChoice extends Config {
+public class ServiceChoice extends BasePage {
 
     public ServiceChoice(WebDriver driver){
         this.driver = driver;

@@ -8,7 +8,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.io.File;
 
-public class Config {
+public class BasePage {
 
     protected static WebDriver driver;
     protected static WebDriverWait wait;
@@ -17,11 +17,21 @@ public class Config {
     private final String FIRST_NAME = "Naruto";
     private final String LAST_NAME = "Uzumaki";
     private final String FATHER_NAME = "Idontknow";
+    private final String MOTHER_NAME = "Mother";
     private final String BIRTH_DATE = "22061999";
     private final String PHONE_NUMBER = "821075913";
     private final String PASSPORT_NUMBER = "1234567";
     private final String GENDER = "Male";
     private final String ADDRESS = "Konoha";
+    private final String PLACE = "Hollywood";
+
+    public String getMOTHER_NAME() {
+        return MOTHER_NAME;
+    }
+
+    public String getPLACE() {
+        return PLACE;
+    }
 
     public String getFIRST_NAME() {
         return FIRST_NAME;
@@ -56,8 +66,7 @@ public class Config {
     }
 
     public File getScreenshotAs() {
-        File screenshotAs = ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
-        return screenshotAs;
+        return ((TakesScreenshot) driver).getScreenshotAs(OutputType.FILE);
     }
 
     public static String getURL() {
