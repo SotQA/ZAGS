@@ -3,9 +3,9 @@ package zags.Factory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import zags.Config;
+import zags.BasePage;
 
-public class LastPageAdmin extends Config {
+public class LastPageAdmin extends BasePage {
 
     public LastPageAdmin(WebDriver driver) {
         this.driver = driver;
